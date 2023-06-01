@@ -1,0 +1,56 @@
+.join-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .join-container form {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .join-container .join-heading {
+    text-align: center;
+  }
+  
+  .join-container .join-form-group {
+    margin-bottom: 10px;
+  }
+  
+  .join-container label {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+  }
+  
+  .join-container input[type="text"],
+  .join-container input[type="email"],
+  .join-container input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .join-container input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .join-container .join-button {
+    width: 100%;
+    padding: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .join-container .join-button:hover {
+    background-color: #0056b3;
+  }
+  
