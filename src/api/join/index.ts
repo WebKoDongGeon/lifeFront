@@ -3,7 +3,11 @@ import { JoinType } from "../../types/join";
 
 
 export const userJoin = async(data: JoinType) => {
-    await server.post('/join', data).then((result) => {
-        console.log("result : ",result);
-    })
+    const resultData = await server.post('/join', data).then((result) => {
+        return result
+    });
+    /**
+     * response: data(String): 회원가입 성공, 실패 메시지
+     */
+    return resultData;
 } 

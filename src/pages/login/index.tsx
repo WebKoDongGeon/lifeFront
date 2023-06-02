@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { login } from "../../api/login";
 
 const Login = () => {
     const [userId, setUserId] = useState('');
     const [userPw, setUserPw] = useState('');
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
         //서버에 넘길 데이터 셋팅
@@ -18,6 +19,18 @@ const Login = () => {
             userId: userId,
             userPw: userPw
         }
+
+        const resultData = await login(data);
+
+        console.log("넘겨받은 데이터 : ",resultData);
+        console.log("resultData.data.userInfo : ",resultData.data.userInfo);
+        console.log("111 : ",resultData.data.userInfo.userNo);
+        if(resultData.data.userInfo.userNo > 0) {
+            localStorage.setItem('accessToken', resultData.data.accessToken);
+            localStorage.setItem('refreshToken', resultData.data.refreshToken);
+            
+        }
+        
 
     }
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Join.css";
 import { userJoin } from "../../api/join";
+import { useNavigate } from "react-router-dom";
 
 const Join = () => {
   const [userId, setUserId] = useState("");
@@ -8,7 +9,9 @@ const Join = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("M");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate =useNavigate();
+
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // 서버에 넘길 데이터 셋팅
@@ -21,7 +24,15 @@ const Join = () => {
         gender: gender
     }
     //회원가입 api 호출
-    const result = userJoin(data);
+    const result = await userJoin(data);
+
+    console.log("result11 : ",result);
+
+    if(result.data === "회원가입을 축하합니다.") {
+      navigate('/login');
+    } else {
+      alert(result.data);
+    }
   };
 
   return (
@@ -67,6 +78,7 @@ const Join = () => {
             type="radio"
             name="gender"
             value="M"
+            defaultChecked
             onChange={(event) => {
               setGender(event.target.value);
             }}
