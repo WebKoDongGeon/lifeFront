@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { login } from "../../api/login";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../../store/thunk/fetchUser";
+import { ThunkDispatch } from '@reduxjs/toolkit';
 
 const Login = () => {
     const [userId, setUserId] = useState('');
     const [userPw, setUserPw] = useState('');
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
     const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -20,18 +23,8 @@ const Login = () => {
             userPw: userPw
         }
 
-        const resultData = await login(data);
-
-        console.log("넘겨받은 데이터 : ",resultData);
-        console.log("resultData.data.userInfo : ",resultData.data.userInfo);
-        console.log("111 : ",resultData.data.userInfo.userNo);
-        if(resultData.data.userInfo.userNo > 0) {
-            localStorage.setItem('accessToken', resultData.data.accessToken);
-            localStorage.setItem('refreshToken', resultData.data.refreshToken);
-            
-        }
+        dispatch(fetchUser(data))
         
-
     }
 
     return (
