@@ -9,7 +9,7 @@ const Join = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("M");
 
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

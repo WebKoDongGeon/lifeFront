@@ -1,12 +1,18 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../store/thunk/fetchUser";
 import { ThunkDispatch } from '@reduxjs/toolkit';
+import { userType } from "../../types/user";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
     const [userId, setUserId] = useState('');
     const [userPw, setUserPw] = useState('');
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const userNo = useSelector((state: {user: userType}) => state.user?.userNo)
+    const navigate = useNavigate();
+
 
     const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -26,6 +32,14 @@ const Login = () => {
         dispatch(fetchUser(data))
         
     }
+
+    useEffect(()=>{
+        console.log("userNo : ",userNo);
+
+        if(userNo !== 0) {
+            navigate('/');
+        }
+    },[userNo])
 
     return (
         <>

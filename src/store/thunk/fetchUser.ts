@@ -9,6 +9,7 @@ export const fetchUser = createAsyncThunk(
     'user/fetch', //액션 타입의 접두사
     async(userData: LoginType, thunkAPI) => {
         const response = await server.post('/login', userData);
-        return response.data;
+        console.log("response : ",response.data.userInfo);
+        return response.data.userInfo;
     }
 )
