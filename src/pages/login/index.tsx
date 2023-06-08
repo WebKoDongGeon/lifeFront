@@ -39,7 +39,7 @@ const Login = () => {
         if(userNo !== 0) {
             navigate('/');
         }
-    },[userNo])
+    },[navigate, userNo])
 
     return (
         <>

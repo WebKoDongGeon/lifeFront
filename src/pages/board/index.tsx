@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Pagination } from 'react-bootstrap';
 import BoardList from './boardHeader';
+import { BoardType } from '../../types/board';
+import { boardList } from '../../api/board';
 
-interface Post {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  date: string;
-}
 
 const Board: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<BoardType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [boardList, setBoardList] = useState<string[]>([])
+  const [boardHeader, setBoardHeader] = useState<any[]>([])
   const postsPerPage = 10;
   const pages = Math.ceil(posts.length / postsPerPage);
   
   // 데이터를 불러오는 함수
   const loadData = async () => {
     // 원하는 데이터를 불러옵니다 여기서는 예시로 임의의 데이터를 사용합니다.
-    const dummyData: Post[] = [
-      {id: 1, title: 'Title 1', content: 'Content 1', author: 'Author 1', date: '2023-01-01'},
-      // ...
-    ];
+    // console.log("resultData : ",resultData);
+    const dummyData: BoardType[] = [
+          {id: 1, title: 'Title 1', content: 'Content 1', userId: 'Author 1', regDt: '2023-01-01'},
+          // ...
+        ];
+    const resultData = await boardList(dummyData);
 
-    setPosts(dummyData);
+    // setPosts(resultData);
   };
 
 
@@ -33,12 +30,13 @@ const Board: React.FC = () => {
   
   useEffect(() => {
     loadData();
-    setBoardList(boardList => [...boardList, '야구 게시판']);
+    setBoardHeader(['야구 게시판','계란 게시판', '심청이']);
   }, []);
 
   return (
     <Container className='mt-5'>
-        <BoardList boards={boardList}/>
+        <BoardList boards={boardHeader}/>
+        <hr />
         <Table striped bordered hover>
             <thead>
             <tr>
@@ -49,16 +47,16 @@ const Board: React.FC = () => {
             </tr>
             </thead>
             <tbody>
-            {posts
+            {/* {posts
                 .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
                 .map((post, idx) => (
                 <tr key={post.id}>
                     <td>{idx + 1}</td>
                     <td>{post.title}</td>
-                    <td>{post.author}</td>
-                    <td>{post.date}</td>
+                    <td>{post.userId}</td>
+                    <td>{post.regDt}</td>
                 </tr>
-                ))}
+                ))} */}
             </tbody>
         </Table>
         <Pagination>

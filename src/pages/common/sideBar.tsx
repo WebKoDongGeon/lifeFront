@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
-import { Dropdown, Nav } from "react-bootstrap";
+import { Button, CloseButton, Dropdown, Nav, Offcanvas } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "../../routes/menu";
+import Icons from "./icons";
 
-const SideBar = () => {
+const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
     const menu = Menu;
     const navigate = useNavigate();
     const [selectItem, setSelectItem] = useState(0);
     const sidebarHeight = window.innerHeight + 'px';
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => {
+        setShow(false);
+        checkMenu(false)
+    }
+    const handleShow = () => {
+        setShow(true);
+        checkMenu(true);
+    }
+
+    
     const linkHandle = (event:React.MouseEvent<HTMLElement, MouseEvent> ,data: string, index: number) => {
         event.preventDefault();
         // console.log("data : ",data);
@@ -24,14 +36,21 @@ const SideBar = () => {
 
     return (
         <>
-            {/* <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{ width: '280px', height: sidebarHeight, overflow: 'auto' }}> */}
+            <Button onClick={handleShow} variant="link">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2" />
+            </Button>
+            <Offcanvas show={show} onHide={handleClose}>
             <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{ width: '100%', height: sidebarHeight, overflow: 'auto' }}>
                 <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     {/* Replace the SVG with your Logo */}
-                    <svg className="bi pe-none me-2" width="40" height="32">
-                        <use xlinkHref="#bootstrap" />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="bi bi" width="40" height="32">
+                        <use xlinkHref="http://www.w3.org/2000/svg" />
                     </svg>
+                    
                     <span className="fs-4">고라이크</span>
+                    
+                    <CloseButton variant="white" onClick={handleClose}/>
+                    
                 </Link>
                 <hr />
                 <Nav className="nav-pills flex-column mb-auto">
@@ -40,9 +59,7 @@ const SideBar = () => {
                             <Nav.Item key={index}>
                                 <Nav.Link href={data.path} className={selectItem === index ? 'active' : 'text-white'} key={index} onClick={ (event) => { linkHandle(event, data.path, index) }}>
                                     <div id={data.label}>
-                                        <svg className="bi pe-none me-2" width="16" height="16">
-                                            <use xlinkHref="#speedometer2" />
-                                        </svg>
+                                        <Icons iconsComponent={data.cssName} />
                                         {data.label}
                                     </div>
                                 </Nav.Link>
@@ -63,6 +80,7 @@ const SideBar = () => {
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
+            </Offcanvas>
         </>
     );
 }

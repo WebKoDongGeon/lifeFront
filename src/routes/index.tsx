@@ -5,21 +5,26 @@ import Main from "../pages";
 import Join from "../pages/join";
 import SideBar from "../pages/common/sideBar";
 import Board from "../pages/board";
+import Profile from "../pages/profile";
+import { useState } from "react";
 
 const Router = () => {
+    const [checkMenu, setCheckMenu] = useState(false);
+
     return (
         <div>
             <Container fluid>
                 <Row>
-                    <Col sm={3} style={{paddingLeft: 0}}>
-                        <SideBar />
+                    <Col sm={checkMenu ? 3 : 0} style={{paddingLeft: 0}}>
+                        <SideBar checkMenu={setCheckMenu}/>
                     </Col>
-                    <Col sm={9}>
+                    <Col sm={checkMenu ? 9: 12}>
                     <Routes>
                         <Route path="/" element={<Main />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/join" element={<Join />} />
                         <Route path="/board" element={<Board />} />
+                        <Route path="/profile" element={<Profile />} />
                     </Routes>
                     </Col>
                 </Row>

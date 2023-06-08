@@ -7,6 +7,7 @@ export const Menu = [
         level: 0,
         parentKey: '',
         components: 'main',
+        cssName: 'h-square',
         header: false,
         tabnav: true,
         banner: true
@@ -19,6 +20,20 @@ export const Menu = [
         level: 0,
         parentKey: '',
         components: 'board',
+        cssName: 'clipboard-minus-fill',
+        header: false,
+        tabnav: true,
+        banner: true
+    },
+    {
+        icon: null,
+        key: 'profile',
+        label: '프로필',
+        path: '/profile',
+        level: 0,
+        parentKey: '',
+        components: 'profile',
+        cssName: 'cpu',
         header: false,
         tabnav: true,
         banner: true
