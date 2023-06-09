@@ -11,10 +11,12 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
     const [selectItem, setSelectItem] = useState(0);
     const sidebarHeight = window.innerHeight + 'px';
     const [show, setShow] = useState(false);
+    const [pathCheck, setPathCheck] = useState('');
 
     const handleClose = () => {
         setShow(false);
         checkMenu(false)
+        navigate(pathCheck);
     }
     const handleShow = () => {
         setShow(true);
@@ -48,16 +50,14 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
                     </svg>
                     
                     <span className="fs-4">고라이크</span>
-                    
-                    <CloseButton variant="white" onClick={handleClose}/>
-                    
                 </Link>
+                <CloseButton variant="white" onClick={handleClose}/>
                 <hr />
                 <Nav className="nav-pills flex-column mb-auto">
                     {menu.map((data, index)=> {
                         return (
                             <Nav.Item key={index}>
-                                <Nav.Link href={data.path} className={selectItem === index ? 'active' : 'text-white'} key={index} onClick={ (event) => { linkHandle(event, data.path, index) }}>
+                                <Nav.Link href={data.path} className={selectItem === index ? 'active' : 'text-white'} key={index} onClick={ (event) => { linkHandle(event, data.path, index); setPathCheck(data.path) }}>
                                     <div id={data.label}>
                                         <Icons iconsComponent={data.cssName} />
                                         {data.label}

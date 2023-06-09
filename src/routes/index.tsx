@@ -7,6 +7,7 @@ import SideBar from "../pages/common/sideBar";
 import Board from "../pages/board";
 import Profile from "../pages/profile";
 import { useState } from "react";
+import BoardCreate from "../pages/board/new";
 
 const Router = () => {
     const [checkMenu, setCheckMenu] = useState(false);
@@ -24,6 +25,8 @@ const Router = () => {
                         <Route path="/login" element={<Login />} />
                         <Route path="/join" element={<Join />} />
                         <Route path="/board" element={<Board />} />
+                        
+                        <Route path="/board/:type" element={<BoardCreate />} />
                         <Route path="/profile" element={<Profile />} />
                     </Routes>
                     </Col>
