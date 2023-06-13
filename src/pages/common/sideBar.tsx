@@ -3,6 +3,8 @@ import { Button, CloseButton, Dropdown, Nav, Offcanvas } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "../../routes/menu";
 import Icons from "./icons";
+import { userType } from "../../types/user";
+import { useSelector } from "react-redux";
 
 const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
@@ -12,7 +14,8 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
     const sidebarHeight = window.innerHeight + 'px';
     const [show, setShow] = useState(false);
     const [pathCheck, setPathCheck] = useState('');
-
+    const userId = useSelector((state: {user: userType}) => state.user?.userId)
+    
     const handleClose = () => {
         setShow(false);
         checkMenu(false)
@@ -39,19 +42,15 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
     return (
         <>
             <Button onClick={handleShow} variant="link">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2" />
+                <img src="https://avatars.githubusercontent.com/u/124127110?s=400&u=817277e11797b367fe3d50d64d14fbca3c1e8e8f&v=4" alt="" width="32" height="32" className="rounded-circle me-2" />
             </Button>
             <Offcanvas show={show} onHide={handleClose}>
             <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{ width: '100%', height: sidebarHeight, overflow: 'auto' }}>
                 <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    {/* Replace the SVG with your Logo */}
-                    <svg xmlns="http://www.w3.org/2000/svg" className="bi bi" width="40" height="32">
-                        <use xlinkHref="http://www.w3.org/2000/svg" />
-                    </svg>
-                    
+                    <Icons iconsComponent="h-square" />
                     <span className="fs-4">고라이크</span>
                 </Link>
-                <CloseButton variant="white" onClick={handleClose}/>
+                {/* <CloseButton variant="white" onClick={handleClose}/> */}
                 <hr />
                 <Nav className="nav-pills flex-column mb-auto">
                     {menu.map((data, index)=> {
@@ -69,10 +68,15 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
                 </Nav>
                 <hr />
                 <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic" className="d-flex align-items-center text-white text-decoration-none">
+                    <Dropdown.Toggle 
+                        variant="success" 
+                        id="dropdown-basic" 
+                        className="d-flex align-items-center text-white text-decoration-none"
+                        onClick={(event) => {linkHandle(event, '/login', 0); setPathCheck("/login")}}
+                    >
                         {/* Replace the img src with your Image */}
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2" />
-                        <strong>mdo</strong>
+                        <img src="https://avatars.githubusercontent.com/u/124127110?s=400&u=817277e11797b367fe3d50d64d14fbca3c1e8e8f&v=4" alt="" width="32" height="32" className="rounded-circle me-2" />
+                        <strong>{userId === '' ? '로그인 해주세요!' : userId}</strong>
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="dropdown-menu-dark text-small shadow">
                         <Dropdown.Item href="#">New project...</Dropdown.Item>
