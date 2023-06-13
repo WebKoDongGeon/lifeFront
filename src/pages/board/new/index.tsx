@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Container, Form, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { userType } from "../../../types/user";
 import { boardSave } from "../../../api/board";
 import dayjs from "dayjs";
+import { fileUpload } from "../../../api/file";
 
 const BoardCreate = () => {
     const { type } = useParams();
@@ -12,6 +13,8 @@ const BoardCreate = () => {
     const [content, setContent] =useState('');
     const [file, setFile] = useState<File | null>(null);
     const userId = useSelector((state: {user: userType}) => state.user?.userId)
+    const navigate = useNavigate();
+    const [saveCheck, setSaveCheck] = useState(false);
     const now = dayjs();
 
     const handleFormSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
@@ -25,18 +28,21 @@ const BoardCreate = () => {
         }
         
         const formData = new FormData();
-        // formData.append('board', new Blob([JSON.stringify(data)], { type: 'application/json' }));
         formData.append('board', new Blob([JSON.stringify(data)], { type: 'application/json' }));
         if (file) {
             formData.append('image', file, file.name);
         }
-
         const resultData = await boardSave(formData);
 
         console.log("resultData : ",resultData);
-        
+        if(resultData.status === 201 && resultData.data > 0) {
+            //반환받은 게시글 번호를 formData에 담아 파일업로드 테이블에 보낸다.
+            formData.append('postId', new Blob([JSON.stringify(resultData.data)], { type: 'application/json' }));
+            await fileUpload(formData);
 
-        
+            setSaveCheck(true);
+        }
+
     }
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +53,23 @@ const BoardCreate = () => {
     return (
         <>
         <Container>
+            {saveCheck &&
+                <Modal show={saveCheck}>
+                    <Modal.Header>
+                        <Modal.Title>게시글 저장완료</Modal.Title>
+                    </Modal.Header>
+                        <Modal.Body>
+                            <Alert variant="primary">
+                                저장되었습니다.
+                            </Alert>
+                        </Modal.Body>
+                        <Modal.Footer>
+                        <Button variant="secondary" onClick={()=>navigate('/')}>
+                            확인
+                        </Button>
+                        </Modal.Footer>
+                </Modal>
+            }
             <Form onSubmit={handleFormSubmit}>
                 <Form.Group controlId="title">
                     <Form.Label>제목</Form.Label>
