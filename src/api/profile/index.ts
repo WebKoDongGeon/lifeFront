@@ -1,7 +1,7 @@
 import server from "..";
 
 export const getProfile = async (data: String) => {
-    
+    console.log("끼야야아아악 : ",data);
     const resultData = await server.get(`/profile/${data}`).then((result) => {
         return result
     });

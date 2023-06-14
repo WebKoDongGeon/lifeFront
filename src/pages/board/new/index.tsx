@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { Alert, Button, Container, Form, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import { userType } from "../../../types/user";
 import { boardSave } from "../../../api/board";
 import dayjs from "dayjs";
 import { fileUpload } from "../../../api/file";
+import { dataGet } from "../../common/dateGet";
 
 const BoardCreate = () => {
     const { type } = useParams();
@@ -14,8 +15,15 @@ const BoardCreate = () => {
     const [file, setFile] = useState<File | null>(null);
     const userId = useSelector((state: {user: userType}) => state.user?.userId)
     const navigate = useNavigate();
+
+    //모달용
     const [saveCheck, setSaveCheck] = useState(false);
     const now = dayjs();
+
+    //년, 월, 일
+    const [year, setYear] = useState<number[]>([]);
+    const [month, setMonth] = useState<number[]>([]);
+    const [day, setDay] = useState<number[]>([]);
 
     const handleFormSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -48,11 +56,20 @@ const BoardCreate = () => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log("event.target.files : ",event.target.files);
         setFile(event.target.files ? event.target.files[0] : null);
-      };
+    };
+
+    const dayHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("event.target : ",event.target.value);
+    }
+
+    useEffect(()=> {
+        setYear(dataGet().years);
+    },[])
     
     return (
         <>
         <Container>
+            {/* 저장시 나오는 모달 팝업. */}
             {saveCheck &&
                 <Modal show={saveCheck}>
                     <Modal.Header>
@@ -70,6 +87,7 @@ const BoardCreate = () => {
                         </Modal.Footer>
                 </Modal>
             }
+
             <Form onSubmit={handleFormSubmit}>
                 <Form.Group controlId="title">
                     <Form.Label>제목</Form.Label>
@@ -81,9 +99,18 @@ const BoardCreate = () => {
                     <Form.Control as="textarea" rows={3} value={content} onChange={e => setContent(e.target.value)} />
                 </Form.Group>
 
+                <Form.Group controlId="content">
+                    <Form.Label>기간</Form.Label>
+                    <Form.Control as={"select"} onChange={dayHandle}>
+                        {year.map((data, index) => {
+                           return <option key={index} value={data}>{data}</option>
+                        })}
+                    </Form.Control>
+                </Form.Group>
+
                 <Form.Group>
-                <Form.Label>이미지</Form.Label>
-                <Form.Control id="file" onChange={handleFileChange} type="file" multiple aria-label="파일 이미지 업로드" />
+                    <Form.Label>이미지</Form.Label>
+                    <Form.Control id="file" onChange={handleFileChange} type="file" multiple aria-label="파일 이미지 업로드" />
                 </Form.Group>
 
                 <hr />

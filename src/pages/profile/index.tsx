@@ -1,23 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 import { getProfile } from "../../api/profile";
 import { useSelector } from "react-redux";
 import { userType } from "../../types/user";
+import { ProfileType } from "../../types/profile";
 
 const Profile = () => {
     const userId = useSelector((state: {user: userType}) => state.user?.userId)
+    const [userData, setUserData] = useState<ProfileType[]>([]);
     const setData = async () => {
         const resultData = await getProfile(userId)
 
         console.log("프로필 : ",resultData);
+        setUserData(resultData.data);
     }
     useEffect(()=>{
-        // setData();
+        setData();
     },[])
     return (
         <>
             <hr className="featurette-divider"/>
             <div className="row featurette">
+                        {/* <img key={index} src={`http://localhost:8080/file/${data.saveImageName}`} style={{width: '50px', height: '50px'}} alt=""/> */}
                 <div className="col-md">
                     <h2 className="featurette-heading fw-normal lh-1">First featurette heading. <span className="text-muted">It’ll blow your mind.</span></h2>
                     <hr className="featurette-divider"/>

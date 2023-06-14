@@ -4,6 +4,7 @@ import { fetchUser } from '../thunk/fetchUser';
 const initialState = {
     userNo: 0,
     userId: '',
+    refreshToken: '',
     error: 'true',
 }
 
@@ -14,6 +15,7 @@ const userSlice = createSlice({
         setUser: (state, action) => {
             state.userNo = action.payload.userNo;
             state.userId = action.payload.userId;
+            state.refreshToken = action.payload.refreshToken;
         }
     },
     extraReducers: (builder) => {
@@ -21,10 +23,9 @@ const userSlice = createSlice({
             if(action.payload !== undefined) {
                 state.userNo = action.payload.userNo;
                 state.userId = action.payload.userId;
+                state.refreshToken = action.payload.refreshToken;
             };
         })
-        
-        
       }
 });
 

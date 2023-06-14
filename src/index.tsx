@@ -4,8 +4,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import {store, persistor} from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { PersistGate } from 'redux-persist/integration/react';
+
+
 
 
 
@@ -16,9 +19,11 @@ root.render(
   // BrowserRouter 는 URL의 변화를 감지하고 라우팅을 관리하는 역할을 수행한다.
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter> 
-          <App />
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor} >
+          <BrowserRouter> 
+            <App />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     </React.StrictMode>
 );
