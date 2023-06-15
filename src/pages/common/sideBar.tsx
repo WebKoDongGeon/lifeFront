@@ -46,11 +46,11 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
             </Button>
             <Offcanvas show={show} onHide={handleClose}>
             <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{ width: '100%', height: sidebarHeight, overflow: 'auto' }}>
-                <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <Link to="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <Icons iconsComponent="h-square" />
                     <span className="fs-4">고라이크</span>
+                    <CloseButton variant="white" onClick={handleClose}/>
                 </Link>
-                {/* <CloseButton variant="white" onClick={handleClose}/> */}
                 <hr />
                 <Nav className="nav-pills flex-column mb-auto">
                     {menu.map((data, index)=> {

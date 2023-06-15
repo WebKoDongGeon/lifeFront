@@ -1,23 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { boardList } from '../../api/board';
+import { BoardListType } from '../../types/board';
 
 const Board: React.FC = () => {
     const navigate = useNavigate();
-//   const [boardHeader, setBoardHeader] = useState<any[]>([])
+    const [boardData, setBoardData] = useState<BoardListType[]>([]);
   
   // 데이터를 불러오는 함수
   const loadData = async () => {
-    // 원하는 데이터를 불러옵니다 여기서는 예시로 임의의 데이터를 사용합니다.
-    // console.log("resultData : ",resultData);
-    // const dummyData: BoardType[] = [
-    //       {id: 1, title: 'Title 1', content: 'Content 1', userId: 'Author 1', regDt: '2023-01-01'},
-    //       // ...
-    //     ];
-    // const resultData = await boardList(dummyData);
+    
+    const resultData = await boardList();
+    console.log("resultData : ",resultData.data);
 
-    // setPosts(resultData);
+    setBoardData(resultData.data)
   };
 
   const createButton = () => {
@@ -50,7 +47,16 @@ const Board: React.FC = () => {
             </tr>
             </thead>
             <tbody>
-            
+              {boardData && boardData.map((data, index) => {
+                return (
+                  <tr>
+                      <td>{data.boardNo}</td>
+                      <td><Link to={`/board/detail?param=${data.boardNo}`}>{data.title}</Link></td>
+                      <td>{data.userId}</td>
+                      <td>{data.regDt}</td>
+                  </tr>
+                )
+              })}
             </tbody>
         </Table>
     </Container>

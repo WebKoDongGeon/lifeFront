@@ -1,11 +1,23 @@
 export type BoardType = {
-    id: number;
+    boardNo: number;
+    company: string;
     title: string;
     content: string;
+    skill: string;
+    startProject: string;
+    endProject: string;
     userId: string;
     fileImage: string;
     regDt: string;
 }
+
+export type BoardListType = {
+    boardNo: number;
+    title: string;
+    userId: string;
+    regDt: string;
+}
+
 
 
 export type BoardSaveType = {
