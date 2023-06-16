@@ -169,7 +169,7 @@ const BoardCreate = () => {
                         </Form.Control>
                         </Col>
                         <Col>
-                        <Form.Control as="select" value={endDay} onChange={e => setEndDay(parseInt(e.target.value))}>
+                        <Form.Control as={"select"} value={endDay} onChange={e => setEndDay(parseInt(e.target.value))}>
                             {Array.from({length: endDaysInMonth}, (_, i) => i + 1).map((day, index) => {
                                 return <option key={index} value={day}>{day}일</option>
                             })}
