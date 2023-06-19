@@ -77,8 +77,6 @@ const BoardDetail = () => {
             modDt: now.format('YYYY-MM-DD HH:mm:ss')
         }
 
-        console.log("이약 확인이닷 : ",data);
-
         const formData = new FormData();
         formData.append('board', new Blob([JSON.stringify(data)], { type: 'application/json' }));
         if (file) {
@@ -198,7 +196,15 @@ const BoardDetail = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>화면 이미지</Form.Label>
-                        <Form.Control disabled={type === paramType.Detail ? true : false} id="file" value={data.fileImage} onChange={handleFileChange} type="file" multiple aria-label="파일 이미지 업로드" />
+                        {type === paramType.Detail ? 
+                            <Form.Control type='text' value={data.originalImageName} disabled/>
+                        : <Form.Control 
+                                disabled={type === paramType.Detail ? true : false} 
+                                id="file" 
+                                value={''} 
+                                onChange={handleFileChange} type="file" multiple aria-label="파일 이미지 업로드" 
+                            />
+                        }
                     </Form.Group>
                     
                     <hr />

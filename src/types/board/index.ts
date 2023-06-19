@@ -7,7 +7,7 @@ export type BoardType = {
     startProject: string;
     endProject: string;
     userId: string;
-    fileImage: string;
+    originalImageName: string;
     regDt: string;
 }
 
