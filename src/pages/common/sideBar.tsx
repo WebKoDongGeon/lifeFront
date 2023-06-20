@@ -71,17 +71,24 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
                     <Dropdown.Toggle 
                         variant="success" 
                         id="dropdown-basic" 
-                        className="d-flex align-items-center text-white text-decoration-none"
-                        onClick={(event) => {linkHandle(event, '/login', 0); setPathCheck("/login")}}
+                        className="badge d-flex align-items-center p-1 pe-2 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-pill"
+                        // onClick={(event) => {linkHandle(event, '/login', 0); setPathCheck("/login")}}
                     >
                         {/* Replace the img src with your Image */}
-                        <img src="https://avatars.githubusercontent.com/u/124127110?s=400&u=817277e11797b367fe3d50d64d14fbca3c1e8e8f&v=4" alt="" width="32" height="32" className="rounded-circle me-2" />
-                        <strong>{userId === '' ? '로그인 해주세요!' : userId}</strong>
+                        {/* <img src="https://avatars.githubusercontent.com/u/124127110?s=400&u=817277e11797b367fe3d50d64d14fbca3c1e8e8f&v=4" alt="" width="32" height="32" className="rounded-circle me-2" /> */}
+                        <img src="https://avatars.githubusercontent.com/u/124127110?s=400&u=817277e11797b367fe3d50d64d14fbca3c1e8e8f&v=4" alt="" width="32" height="32" className="rounded-circle me-1" />
+                        
+                        <strong onClick={(event) => {linkHandle(event, '/login', 0); setPathCheck("/login")}}>
+                            {userId === '' ? '로그인' : userId}
+                        </strong>
                     </Dropdown.Toggle>
-                    <Dropdown.Menu className="dropdown-menu-dark text-small shadow">
-                        <Dropdown.Item href="#">New project...</Dropdown.Item>
-                        {/* ... 다른 드롭다운 아이템들 */}
-                    </Dropdown.Menu>
+                    {userId !== '' && 
+                        <Dropdown.Menu className="dropdown-menu-dark text-small shadow">
+                            <Dropdown.Item href="#">내정보</Dropdown.Item>
+                            <Dropdown.Item href="#">로그아웃</Dropdown.Item>
+                            {/* ... 다른 드롭다운 아이템들 */}
+                        </Dropdown.Menu>
+                    }
                 </Dropdown>
             </div>
             </Offcanvas>

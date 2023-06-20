@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { boardDetail, boardUpdate } from "../../../api/board";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import { boardDelete, boardDetail, boardUpdate } from "../../../api/board";
+import { Alert, Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { BoardType } from "../../../types/board";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
@@ -25,7 +25,9 @@ const BoardDetail = () => {
     const [file, setFile] = useState<File | null>(null);
     const [company, setCompany] = useState('');
     const [skill, setSkill] = useState('');
+    const[checkState, setCheckState] = useState(false);
     const userId = useSelector((state: {user: userType}) => state.user?.userId)
+    const navigate = useNavigate();
 
     //년, 월, 일
     const now = dayjs();
@@ -63,8 +65,7 @@ const BoardDetail = () => {
 
     }
 
-    const saveData = async () => {
-        
+    const saveData = async() => {
         const data = {
             boardNo: boardNo,
             userId: userId,
@@ -83,7 +84,22 @@ const BoardDetail = () => {
             formData.append('image', file, file.name);
         }
 
-        await boardUpdate(formData);
+        const resultData = await boardUpdate(formData);
+
+        if(resultData.data === '수정 완료' && resultData.status === 201) {
+            setCheckState(true);
+        }
+
+    }
+
+    const deleteData = async(boardNo: number) => {
+
+        const resultData = await boardDelete(boardNo.toString());
+
+        if(resultData.data === '삭제 완료' && resultData.status === 201) {
+            setCheckState(true);
+        }
+
     }
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +116,24 @@ const BoardDetail = () => {
     return (
         <>
             <Container>
+                {/* 저장시 나오는 모달 팝업. */}
+                {checkState &&
+                    <Modal show={checkState}>
+                        <Modal.Header>
+                            <Modal.Title>게시글 {type === paramType.Update ? '수정완료' : '삭제완료'}</Modal.Title>
+                        </Modal.Header>
+                            <Modal.Body>
+                                <Alert variant="primary">
+                                    {type === paramType.Update ? '수정이 완료되었습니다.' : '삭제가 완료되었습니다.'}
+                                </Alert>
+                            </Modal.Body>
+                            <Modal.Footer>
+                            <Button variant="secondary" onClick={()=>navigate('/board')}>
+                                확인
+                            </Button>
+                            </Modal.Footer>
+                    </Modal>
+                }
                 {data && 
                 <Form>
                     <Form.Group controlId="company">
@@ -213,6 +247,14 @@ const BoardDetail = () => {
                             onClick={() => setType(paramType.Update)}
                         >
                             수정
+                        </Button>
+                    }
+                    {' '}
+                    {type === paramType.Detail &&
+                        <Button variant="danger"
+                            onClick={() => deleteData(data.boardNo)}
+                        >
+                            삭제
                         </Button>
                     }
 

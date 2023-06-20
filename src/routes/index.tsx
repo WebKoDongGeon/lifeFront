@@ -10,6 +10,7 @@ import { useState } from "react";
 // import BoardCreate from "../pages/board/new";
 import BoardCrossroad from "../pages/board/crossroad";
 import Footer from "../pages/common/footer";
+import Header from "../pages/common/header";
 
 const Router = () => {
     const [checkMenu, setCheckMenu] = useState(false);
@@ -18,6 +19,7 @@ const Router = () => {
         <div>
             <Container fluid>
                 <Row>
+                    {/* <Header /> */}
                     <Col sm={checkMenu ? 3 : 0} style={{paddingLeft: 0}}>
                         <SideBar checkMenu={setCheckMenu}/>
                     </Col>
