@@ -1,4 +1,5 @@
 import server from "..";
+import { BoardType } from "../../types/board";
 
 export const boardList = async () => {
     const resultData = await server.get('/board').then((result) => {
@@ -40,7 +41,6 @@ export const boardDelete = async (data: string) => {
 
 export const boardSave = async (data: FormData) => {
     const resultData = await server.post('/board', data).then((result) => {
-        console.log("??? : ",result)
         return result
     });
     

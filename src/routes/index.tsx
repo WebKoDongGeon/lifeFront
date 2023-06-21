@@ -11,6 +11,7 @@ import { useState } from "react";
 import BoardCrossroad from "../pages/board/crossroad";
 import Footer from "../pages/common/footer";
 import Header from "../pages/common/header";
+import ProfileDetail from "../pages/profile/detail";
 
 const Router = () => {
     const [checkMenu, setCheckMenu] = useState(false);
@@ -32,6 +33,7 @@ const Router = () => {
                         
                         <Route path="/board/:type" element={<BoardCrossroad />} />
                         <Route path="/profile" element={<Profile />} />
+                        {/* <Route path="/profile/detail/:boardNo" element={<ProfileDetail />} /> */}
                     </Routes>
                     <Footer />
                     </Col>
