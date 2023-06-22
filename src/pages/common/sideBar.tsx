@@ -84,7 +84,7 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
                     </Dropdown.Toggle>
                     {userId !== '' && 
                         <Dropdown.Menu className="dropdown-menu-dark text-small shadow">
-                            <Dropdown.Item href="#">내정보</Dropdown.Item>
+                            <Dropdown.Item href="/mypage">내정보</Dropdown.Item>
                             <Dropdown.Item href="#">로그아웃</Dropdown.Item>
                             {/* ... 다른 드롭다운 아이템들 */}
                         </Dropdown.Menu>

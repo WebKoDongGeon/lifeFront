@@ -10,7 +10,7 @@ import ProfileDetail from "./detail";
 const Profile = () => {
     const userId = useSelector((state: {user: userType}) => state.user?.userId)
     const [userData, setUserData] = useState<ProfileType[]>([]);
-    const [a, setA] = useState(false);
+    const [detailModal, setDetailModal] = useState(false);
     const [clickBoarNo, setClickBoardNo] = useState(0)
     
     const setData = async () => {
@@ -22,12 +22,12 @@ const Profile = () => {
 
     useEffect(()=>{
         setData();
-    },[])
+    })
 
     return (
         <>
             <hr className="featurette-divider"/>
-            {a && <ProfileDetail boardNo={clickBoarNo} setA={setA} />}
+            {detailModal && <ProfileDetail boardNo={clickBoarNo} setDetailModal={setDetailModal} />}
             <div className="row featurette">
                 <div className="col-md">
                     <h2 className="featurette-heading fw-normal lh-1">작업물</h2>
@@ -49,7 +49,7 @@ const Profile = () => {
                                                         to={`#`} 
                                                         className="icon-link gap-1 icon-link-hover stretched-link"
                                                         onClick={()=>{
-                                                            setA(true)
+                                                            setDetailModal(true)
                                                             setClickBoardNo(data.boardNo)
                                                         }}
                                                     >
@@ -59,10 +59,12 @@ const Profile = () => {
                                                     
                                                 </div>
                                                 <div className="col-auto d-none d-lg-block">
-                                                    <Image className="bd-placeholder-img" 
-                                                        style={{width: "50", height: "100"}} 
-                                                        src={data.saveImageName === null ? '' : `http://localhost:8080/file/${data.saveImageName}`}
-                                                    />
+                                                    <div className="image-wrapper">
+                                                        <Image
+                                                            className="bd-placeholder-img"
+                                                            src={data.saveImageName === null ? '' : `http://localhost:8080/file/${data.saveImageName}`}
+                                                        />
+                                                    </div>
                                                     {/* <svg className="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> */}
                                                 </div>
                                             </div>

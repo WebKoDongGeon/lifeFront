@@ -7,6 +7,7 @@ export type ProfileType = {
     endProject: string;
     regDt: string;
     userId: string;
+    skill: string;
     title: string;
 };
 
