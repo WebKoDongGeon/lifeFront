@@ -7,11 +7,8 @@ import SideBar from "../pages/common/sideBar";
 import Board from "../pages/board";
 import Profile from "../pages/profile";
 import { useState } from "react";
-// import BoardCreate from "../pages/board/new";
 import BoardCrossroad from "../pages/board/crossroad";
 import Footer from "../pages/common/footer";
-import Header from "../pages/common/header";
-import ProfileDetail from "../pages/profile/detail";
 import MyPage from "../pages/mypage";
 
 const Router = () => {

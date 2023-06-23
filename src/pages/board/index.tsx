@@ -23,20 +23,11 @@ const Board: React.FC = () => {
   
   useEffect(() => {
     loadData();
-    // setBoardHeader(['야구 게시판','계란 게시판', '심청이']);
   }, []);
 
   return (
-    <Container className='mt-5'>
-        {/* <BoardList boards={boardHeader}/> */}
-        <Button 
-                variant="primary"
-                className="mb-3"
-                onClick={createButton}
-            >
-            생성
-        </Button>
-        <hr />
+    <Container className='mt-5'>  
+        <h2>작업물 생성</h2>
         <Table striped bordered hover>
             <thead>
             <tr>
@@ -59,6 +50,14 @@ const Board: React.FC = () => {
               })}
             </tbody>
         </Table>
+        <hr />
+        <Button 
+                variant="primary"
+                className="mb-3"
+                onClick={createButton}
+            >
+            생성
+        </Button>
     </Container>
   );
 };

@@ -45,28 +45,28 @@ const MyPage = () => {
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
-                <Col md="auto">
-                    나이
+                <Col xs lg="2" className="text-body-secondary">
+                    <p className="font-weight-bold">나이 : {userData?.userId}</p>
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
-                <Col md="auto">
-                    성별
+                <Col xs lg="2" className="text-body-secondary">
+                    <p className="font-weight-bold">성별 : {userData?.userId}</p>
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
-                <Col md="auto">
-                    휴대전화
+                <Col xs lg="2" className="text-body-secondary">
+                    <p className="font-weight-bold">휴대전화 : {userData?.userId}</p>
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
-                <Col md="auto">
-                    이메일
+                <Col xs lg="2" className="text-body-secondary">
+                    <p className="font-weight-bold">이메일 : {userData?.userId}</p>
                 </Col>
             </Row>
             <Row className="justify-content-md-center">
-                <Col md="auto">
-                    비밀번호
+                <Col xs lg="2" className="text-body-secondary">
+                    <p className="font-weight-bold">비밀번호 : {userData?.userId}</p>
                 </Col>
             </Row>
 

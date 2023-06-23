@@ -1,5 +1,4 @@
 import server from "..";
-import { BoardType } from "../../types/board";
 
 export const boardList = async () => {
     const resultData = await server.get('/board').then((result) => {
