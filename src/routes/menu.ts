@@ -28,7 +28,7 @@ export const Menu = [
     {
         icon: null,
         key: 'profile',
-        label: '프로필',
+        label: '포트폴리오',
         path: '/profile',
         level: 0,
         parentKey: '',
@@ -38,4 +38,5 @@ export const Menu = [
         tabnav: true,
         banner: true
     },
+    
 ]

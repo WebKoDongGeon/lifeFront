@@ -8,7 +8,7 @@ export const fetchUser = createAsyncThunk(
     'user/fetch', //액션 타입의 접두사
     async(userData: {userId: string, userPw: string}, thunkAPI) => {
         const response = await server.post('/login', userData);
-        console.log("response : ",response.data.userInfo);
+        // console.log("response : ",response.data.userInfo);
 
         localStorage.setItem('token', response.data?.userInfo.refreshToken)
         return response.data.userInfo;

@@ -4,27 +4,28 @@ import { ProfileType } from "../../types/profile";
 import { useEffect, useState } from "react";
 import { getProfile } from "../../api/profile";
 import { Col, Container, Image, Row } from "react-bootstrap";
+import { myPage } from "../../api/mypage";
 
 const MyPage = () => {
-    const userId = useSelector((state: {user: userType}) => state.user?.userId)
+    const userNo = useSelector((state: {user: userType}) => state.user?.userNo)
     const [userData, setUserData] = useState<ProfileType | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await getProfile(userId);
-            setUserData(response.data);
+            const response = await myPage(userNo.toString());
+            // setUserData(response);
         } catch (error) {
             console.log(error);
         }
         };
 
         fetchData();
-    }, [userId]);
+    }, [userNo]);
 
-    if (!userData) {
-        return <div>Loading...</div>;
-    }
+    // if (!userData) {
+    //     return <div>Loading...</div>;
+    // }
 
     return (
         <Container>

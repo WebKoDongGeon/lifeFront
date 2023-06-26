@@ -29,8 +29,8 @@ const SideBar = ({ checkMenu }: { checkMenu: React.Dispatch<React.SetStateAction
     
     const linkHandle = (event:React.MouseEvent<HTMLElement, MouseEvent> ,data: string, index: number) => {
         event.preventDefault();
-        // console.log("data : ",data);
-        // console.log("index : ",index);
+        console.log("data : ",data);
+        console.log("index : ",index);
         setSelectItem(index);
         navigate(data);
     }

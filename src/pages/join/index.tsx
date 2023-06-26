@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Join = () => {
   const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
   const [userPw, setUserPw] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("M");
@@ -19,14 +20,13 @@ const Join = () => {
 
     const data = {
         userId: userId,
+        userName: userName,
         userPw: userPw,
         email: email,
         gender: gender
     }
     //회원가입 api 호출
     const result = await userJoin(data);
-
-    console.log("result11 : ",result);
 
     if(result.data === "회원가입을 축하합니다.") {
       navigate('/login');
@@ -40,13 +40,24 @@ const Join = () => {
       <form onSubmit={handleSubmit}>
         <h2 className="join-heading">회원가입</h2>
         <div className="join-form-group">
+          <label>아이디</label>
+          <input
+            type="text"
+            name="userId"
+            value={userId}
+            onChange={(event) => {
+              setUserId(event.target.value);
+            }}
+          />
+        </div>
+        <div className="join-form-group">
           <label>이름</label>
           <input
             type="text"
             name="username"
-            value={userId}
+            value={userName}
             onChange={(event) => {
-              setUserId(event.target.value);
+              setUserName(event.target.value);
             }}
           />
         </div>
@@ -83,7 +94,7 @@ const Join = () => {
               setGender(event.target.value);
             }}
           />
-          남자
+          남자{' '}
           <input
             type="radio"
             name="gender"
