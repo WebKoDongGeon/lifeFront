@@ -10,6 +10,7 @@ import { useState } from "react";
 import BoardCrossroad from "../pages/board/crossroad";
 import Footer from "../pages/common/footer";
 import MyPage from "../pages/mypage";
+import Shop from "../pages/shop";
 
 const Router = () => {
     const [checkMenu, setCheckMenu] = useState(false);
@@ -32,6 +33,7 @@ const Router = () => {
                         <Route path="/board/:type" element={<BoardCrossroad />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/mypage" element={<MyPage />}/>
+                        <Route path="/shop" element={<Shop />}/>
                     </Routes>
                     <Footer />
                     </Col>

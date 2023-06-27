@@ -22,7 +22,7 @@ const Profile = () => {
 
     useEffect(()=>{
         setData();
-    })
+    },[])
 
     return (
         <>

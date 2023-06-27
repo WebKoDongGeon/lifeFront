@@ -9,5 +9,9 @@ export type ProfileType = {
     userId: string;
     skill: string;
     title: string;
+    gender: string;
+    age: string;
+    userName: string;
+    email: string;
 };
 

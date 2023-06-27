@@ -38,5 +38,18 @@ export const Menu = [
         tabnav: true,
         banner: true
     },
+    {
+        icon: null,
+        key: 'shop',
+        label: '쇼핑',
+        path: '/shop',
+        level: 0,
+        parentKey: '',
+        components: 'shop',
+        cssName: 'cart-check',
+        header: false,
+        tabnav: true,
+        banner: true
+    },
     
 ]
